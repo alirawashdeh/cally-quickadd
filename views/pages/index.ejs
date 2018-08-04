@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+<head>
+  <% include ../partials/head.ejs %>
+  <script>
+
+  function Initialise ()
+  {
+    document.getElementById("meetingInput").focus();
+  }
+
+  function UpdateHelpText()
+  {
+    var text = '';
+    var cally = new Cally(document.getElementById("meetingInput").value, new Date());
+    text += cally.subject;
+    if (cally.datefound) {
+      var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      text += ' - ' + cally.startdate.toLocaleDateString("en-GB",options);
+    }
+    if (cally.allday) {
+      text += ' - All day';
+    } else {
+      if (cally.starttimefound) {
+        var minutes = cally.startdate.getMinutes();
+        var minuteFormatted = ""
+        minuteFormatted = minutes < 10 ? "0" + minutes : minutes,
+        text += ' - ' + cally.startdate.getHours() + ':' + minuteFormatted;
+      }
+      if (cally.endtimefound) {
+        var endminutes = cally.enddate.getMinutes();
+        var endMinutesFormatted = ""
+        endMinutesFormatted = endminutes < 10 ? "0" + endminutes : endminutes,
+        text += '-' + cally.enddate.getHours() + ':' + endMinutesFormatted;
+      }
+    }
+    document.getElementById("meetingHelp").innerHTML = text;
+    document.getElementById("preview-pane").style.display = 'inline-block';
+    if(text == '')
+    {
+      document.getElementById("preview-pane").style.display = 'none';
+    }
+  }
+
+
+  function RunCally()
+  {
+    UpdateHelpText();
+  }
+
+  function DownloadEvent()
+  {
+    var cally = new Cally(document.getElementById("meetingInput").value, new Date());
+
+    var subject;
+    var description = '';
+    var location = '';
+    var begin;
+    var end;
+
+    subject = cally.subject;
+    begin = new Date(cally.startdate);
+
+    if(cally.endtimefound){
+      end = cally.enddate;
+    }  else {
+      end = new Date(cally.startdate);
+    }
+
+    if(!cally.allday && !cally.endtimefound) {
+      end.setHours(end.getHours() + 1);
+    }
+
+    var cal = ics();
+    cal.addEvent(subject,description,location,begin,end);
+    cal.download(subject);
+
+    return false;
+
+  }
+
+</script>
+</head>
+
+<body onload="Initialise();">
+  <div class="header">
+    <div class="container">
+      <img src="/images/icon.png" class="icon">
+      <span class="header-text">Cally Quick-add</span>
+    </div>
+  </div>
+  <div class="main-body" role="main">
+    <div class="container">
+    <h1>Quick-add</h1>
+    <p class="lede">Quickly create calendar appointments using natural language</p>
+      <div class="card">
+          <form onsubmit="return DownloadEvent();">
+              <label for="meetingInput">Meeting details: </label>
+              <input autocomplete="off" type="text" class="search-box" id="meetingInput" aria-describedby="emailHelp" placeholder="e.g. Meet John on Tuesday at 3pm" onchange="RunCally()" onkeypress="this.onchange();" oninput="this.onchange();">
+              <div id="preview-pane" class="preview-pane">
+                <span>Save appointment: </span>
+                <div id="meetingHelp" class="preview-text"></div>
+                <button type="submit" class="btn btn-primary">Save as .ics</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="site-footer">
+      <div class="container">
+        💖 Lovingly crafted by <a href="http://www.twitter.com/al1ra">@al1ra</a>
+        <div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  </html>

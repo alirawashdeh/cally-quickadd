@@ -1,0 +1,23 @@
+CACHE MANIFEST
+# v7
+
+CACHE:
+/
+stylesheets/main.css
+images/icon.png
+scripts/ics.deps.min.js
+scripts/cally-min.js
+fonts/roboto-v18-latin-100.woff2
+fonts/roboto-v18-latin-100.woff
+fonts/roboto-v18-latin-regular.woff2
+fonts/roboto-v18-latin-regular.woff
+images/favicon/android-chrome-192x192.png
+images/favicon/android-chrome-256x256.png
+images/favicon/apple-touch-icon.png
+images/favicon/browserconfig.xml
+images/favicon/favicon-16x16.png
+images/favicon/favicon-32x32.png
+images/favicon/favicon.ico
+images/favicon/mstile-150x150.png
+images/favicon/safari-pinned-tab.svg
+images/favicon/site.webmanifest
