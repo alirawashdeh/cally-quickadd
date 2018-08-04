@@ -18,6 +18,7 @@ Make sure that you have the [Heroku CLI](https://devcenter.heroku.com/articles/h
 git clone https://github.com/alirawashdeh/cally-quickadd.git
 cd cally-quickadd
 heroku create
+git push heroku master
 ```
 
 ## Credits

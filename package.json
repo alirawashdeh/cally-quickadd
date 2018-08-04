@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "callyjs": "^1.0.7",
-    "ejs": "2.3.3",
+    "ejs": "2.5.5",
     "express": "^4.16.3"
   },
   "engines": {
