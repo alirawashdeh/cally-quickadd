@@ -37,24 +37,33 @@
     var text = '';
     var cally = new Cally(document.getElementById("meetingInput").value, new Date());
     text += cally.subject;
-    if (cally.datefound) {
+    if (cally.startdatefound && !(cally.enddatefound && cally.startdate.toDateString() !== cally.enddate.toDateString())) {
       var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       text += ' - ' + cally.startdate.toLocaleDateString("en-GB",options);
     }
     if (cally.allday) {
       text += ' - All day';
     } else {
-      if (cally.starttimefound) {
-        var minutes = cally.startdate.getMinutes();
-        var minuteFormatted = ""
-        minuteFormatted = minutes < 10 ? "0" + minutes : minutes,
-        text += ' - ' + cally.startdate.getHours() + ':' + minuteFormatted;
-      }
-      if (cally.endtimefound) {
-        var endminutes = cally.enddate.getMinutes();
-        var endMinutesFormatted = ""
-        endMinutesFormatted = endminutes < 10 ? "0" + endminutes : endminutes,
-        text += '-' + cally.enddate.getHours() + ':' + endMinutesFormatted;
+      if (cally.enddatefound && cally.startdate.toDateString() !== cally.enddate.toDateString()) {
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var startMinutes = cally.startdate.getMinutes();
+        var startMinuteFormatted = startMinutes < 10 ? "0" + startMinutes : startMinutes;
+        var endMinutes = cally.enddate.getMinutes();
+        var endMinuteFormatted = endMinutes < 10 ? "0" + endMinutes : endMinutes;
+        text += ' - ' + cally.startdate.getHours() + ':' + startMinuteFormatted + ' ' + cally.startdate.toLocaleDateString("en-GB",options) + ' - ' + cally.enddate.getHours() + ':' + endMinuteFormatted + ' ' + cally.enddate.toLocaleDateString("en-GB",options);
+      } else {
+        if (cally.starttimefound) {
+          var minutes = cally.startdate.getMinutes();
+          var minuteFormatted = ""
+          minuteFormatted = minutes < 10 ? "0" + minutes : minutes,
+          text += ' - ' + cally.startdate.getHours() + ':' + minuteFormatted;
+        }
+        if (cally.endtimefound) {
+          var endminutes = cally.enddate.getMinutes();
+          var endMinutesFormatted = ""
+          endMinutesFormatted = endminutes < 10 ? "0" + endminutes : endminutes,
+          text += '-' + cally.enddate.getHours() + ':' + endMinutesFormatted;
+        }
       }
     }
     document.getElementById("meetingHelp").innerHTML = text;
