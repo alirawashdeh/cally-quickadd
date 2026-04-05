@@ -3,6 +3,8 @@
 
 A lightweight offline-enabled web application that allows you to create and download calendar appointments (in .ics format) by inputting natural language - e.g. "Meet John next Tuesday at 10 for 2 hours".
 
+Try it out at [https://www.alirawashdeh.com/cally-quickadd/](https://www.alirawashdeh.com/cally-quickadd/)
+
 ![ScreenShot](screenshot.png)
 
 ### But why?
