@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
-  <% include ../partials/head.ejs %>
+  <title>Cally Quick-add</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/alirawashdeh/callyjs@master/dist/cally-min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/alirawashdeh/cally-quickadd/public/scripts/ics.deps.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="public/stylesheets/main.css" />
+
+  <!-- favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="public/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="public/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="public/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="public/images/favicon/site.webmanifest">
+  <link rel="mask-icon" href="public/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="public/images/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="public/images/favicon/browserconfig.xml">
+
+  <!-- Tab colour -->
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#f7717f">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#f7717f">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="#f7717f">
+
   <script>
 
   function Initialise ()
@@ -85,7 +108,7 @@
 <body onload="Initialise();">
   <div class="header">
     <div class="container">
-      <img src="/images/icon.png" class="icon">
+      <img src="public/images/icon.png" class="icon">
       <span class="header-text">Cally Quick-add</span>
     </div>
   </div>
@@ -113,5 +136,5 @@
         </div>
       </div>
     </footer>
-  </body>
+  </div>
   </html>

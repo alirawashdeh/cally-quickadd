@@ -3,23 +3,28 @@
 
 A lightweight offline-enabled web application that allows you to create and download calendar appointments (in .ics format) by inputting natural language - e.g. "Meet John next Tuesday at 10 for 2 hours".
 
-See a demo at [cally-js.herokuapp.com](https://cally-js.herokuapp.com)
-
 ![ScreenShot](screenshot.png)
 
 ### But why?
 You can use Google Assistant and Siri to create calendar appointments using natural language. However, using them to create appointments using voice or text input takes too much time. It is usually quicker to open Google Calendar in Chrome. Cally Quick-add is designed to load quickly (offline) and allow users to create appointments quickly.
 
-## Deploying to Heroku
+## Deploying to GitHub Pages
 
-Make sure that you have the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed.
+This is now a static HTML site that can be deployed to GitHub Pages:
 
+1. Fork or clone this repository
+2. Push to your GitHub repository
+3. Go to repository Settings → Pages
+4. Select source as "Deploy from a branch" and choose main branch
+5. Your site will be available at `https://username.github.io/repository-name`
+
+## Local Development
+
+To run locally:
+```bash
+python3 -m http.server 8000
 ```
-git clone https://github.com/alirawashdeh/cally-quickadd.git
-cd cally-quickadd
-heroku create
-git push heroku master
-```
+Then open http://localhost:8000 in your browser.
 
 ## Credits
 
