@@ -37,21 +37,42 @@
     var text = '';
     var cally = new Cally(document.getElementById("meetingInput").value, new Date());
     text += cally.subject;
+    
+    // Show start date only for single-day appointments (not multi-day)
     if (cally.startdatefound && !(cally.enddatefound && cally.startdate.toDateString() !== cally.enddate.toDateString())) {
       var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       text += ' - ' + cally.startdate.toLocaleDateString("en-GB",options);
     }
+    
+    // Handle all-day appointments
     if (cally.allday) {
       text += ' - All day';
+      // Multi-day all-day: "meet john - All day (Monday, 6 April 2026 - Tuesday, 7 April 2026)"
+      if (cally.enddatefound && cally.startdate.toDateString() !== cally.enddate.toDateString()) {
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        text += ' (' + cally.startdate.toLocaleDateString("en-GB",options) + ' - ' + cally.enddate.toLocaleDateString("en-GB",options) + ')';
+      } 
+      // Single-day all-day: "meet john - All day - Monday, 6 April 2026"
+      else if (cally.startdatefound) {
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        text += ' - ' + cally.startdate.toLocaleDateString("en-GB",options);
+      }
     } else {
+      // Multi-day timed appointments: "meet john - 10:00 Monday, 6 April 2026 - 10:00 Tuesday, 7 April 2026"
       if (cally.enddatefound && cally.startdate.toDateString() !== cally.enddate.toDateString()) {
         var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         var startMinutes = cally.startdate.getMinutes();
         var startMinuteFormatted = startMinutes < 10 ? "0" + startMinutes : startMinutes;
         var endMinutes = cally.enddate.getMinutes();
         var endMinuteFormatted = endMinutes < 10 ? "0" + endMinutes : endMinutes;
-        text += ' - ' + cally.startdate.getHours() + ':' + startMinuteFormatted + ' ' + cally.startdate.toLocaleDateString("en-GB",options) + ' - ' + cally.enddate.getHours() + ':' + endMinuteFormatted + ' ' + cally.enddate.toLocaleDateString("en-GB",options);
+        
+        if (cally.starttimefound && cally.endtimefound) {
+          text += ' - ' + cally.startdate.getHours() + ':' + startMinuteFormatted + ' ' + cally.startdate.toLocaleDateString("en-GB",options) + ' - ' + cally.enddate.getHours() + ':' + endMinuteFormatted + ' ' + cally.enddate.toLocaleDateString("en-GB",options);
+        } else {
+          text += ' - ' + cally.startdate.toLocaleDateString("en-GB",options) + ' - ' + cally.enddate.toLocaleDateString("en-GB",options);
+        }
       } else {
+        // Single-day timed appointments: "meet john - Monday, 6 April 2026 - 10:00-11:00"
         if (cally.starttimefound) {
           var minutes = cally.startdate.getMinutes();
           var minuteFormatted = ""
